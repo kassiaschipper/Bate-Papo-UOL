@@ -28,20 +28,28 @@
 
         <footer>
             <textarea class="textarea" placeholder="Escreva aqui..."></textarea>
-            <div class="button" onclick="sendMessage()"><img class="send-message-icon" src="images\Vector1.png"></div>
+            <div><img onclick="sendMessege()" class="send-message-icon" src="images\Vector1.png"></div>
         </footer>
     </div>
 
-    <div class="id-area">
-        <div><img class="id-area-logo" src="images\logo 1.png"></div>
-        <div><textarea class="username-box" placeholder="Digite seu nome"></textarea></div>
-        <div class="enter-button" onclick="">Entrar</div>
+    <div class="hide-login-area">
+        
+        <div class="id-area">
+            <img class="id-area-logo" src="images\logo 1.png">
+            <textarea class="username-box" placeholder="Digite seu nome"></textarea>
+            <div class="enter-button" onclick="joinChatRoom()">Entrar</div>
+        </div>
     </div>
+    
 
 
 
 
-    <script src="script.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="script.js"></script>
 </body>
 
 </html>
