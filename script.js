@@ -1,3 +1,6 @@
+let recipient = "Todos";
+let messageStatus = "message";
+
 //Usuário precisa se identificar para entrar na sala - podendo ou não ter seu usuário permitido
 function joinChatRoom() {
     // alert("teste");
@@ -5,7 +8,7 @@ function joinChatRoom() {
     const username = document.querySelector(".username-box").value; //pega o valor digitado na caixa de texto
     const usernameObject = { name: username };
 
-    const promisse = axios.post("https://mock-api.driven.com.br/api/v6/uol[/participants](https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/participants", usernameObject);
+    const promisse = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants", usernameObject);
     promisse.then(enterChatRoom)//se nome ok, entra na sala 
     promisse.catch(askNewName)//se nome não ok pede outro nome
     console.log(promisse);
@@ -14,7 +17,7 @@ function joinChatRoom() {
 
 // função que verifica o erro e solicita novo nome
 function askNewName(error) { 
-    // alert("erro");
+    alert("erro");
     const error = error.response.status;
     if (error === 400) {
         alert("Esse nome já existe na sala, escolha outro!");
@@ -32,27 +35,68 @@ function enterChatRoom() {
     const chatRoomContainer = document.querySelector(".container").classList.add("hidden");
     
     //mostra as mensagens 
-    showMesseges();
+    showMessages();
     //recarrega as mensagens
-    reloadMesseges();
-    
+    reloadMessages();
     //Enquanto o usuário estiver na sala, a cada 5 segundos o site deve avisar ao servidor que o usuário ainda está presente, ou senão será considerado que "Saiu da sala"
     refreshOnlineUser();
 }
 
-function showMesseges(){
+function showMessages(){
     const promisse = axios.get("https://mock-api.driven.com.br/api/v6/uol/messages");
+    promisse.then(loadMessages);
     
     //scrola as memsagens 
-    const scroll = document.querySelector(".messeges-container");
+    const scroll = document.querySelector(".messages-container");
     scroll.scrollIntoView();
-    promisse.then("showMesseges");
+    
+}
+//função para carregar as mensagens
+function loadMessages(element){
+
+    let messages = document.querySelector(".messages-container");
+    
+    for(let i; i < element.data.length; i++){
+
+        if(element.data[i].type === "status"){
+            messages.innerHTML +=`
+            <div class="messages-default-style room-entry-message">
+                <span class="text-color-gray">(${element.data[i].time})</span>
+                <span class="bold-text">)${element.data[i].from}<span>
+                <span>${element.data[i].text}<span>  
+            </div>
+            `
+        }
+        if(element.data[i].type === "private_message"){
+            const username = document.querySelector(".username-box").value;
+           
+            if(element.data[i].to === username || element.data[i].to === "Todos" 
+            || element.data[i].from === username){
+            messages.innerHTML +=`
+            <div class="messages-default-style private-message">
+                <span class="text-color-gray">(${element.data[i].time})</span>
+                <span class="bold-text">)${element.data[i].from}<span>
+                <span>reservadamente para</span>
+                <span>${element.data[i].text}<span>  
+            </div>
+            `}
+        }else{
+            messages.innerHTML +=`
+            <div class="messages-default-style public-message">
+                <span class="text-color-gray">(${element.data[i].time})</span>
+                <span>para</span>
+                <span class="bold-text">)${element.data[i].from}<span>
+                <span>${element.data[i].text}<span>  
+            </div>            
+            `
+        }
+        
+    }
 
 }
-
-function reloadMesseges(){
+function reloadMessages(){
     //atualiza a pagina de 3s em 3s
-    setInterval(showMesseges, 3000);
+    setInterval(showMessages, 3000);
 }
 
 //Manda o nome do usuário para o servidor
@@ -65,9 +109,21 @@ function onlineUser(){
 
 //atualiza o nome do usuario no servidor a cada 5s
 function refreshOnlineUser(){
-    setInterval("onlineUser",5000);
+    setInterval(onlineUser,5000);
 }
 
-// function sendMessege(){
-//     alert("teste");
-// }ççbvv
+
+function sendMessage(){
+    const message = document.querySelector(".textarea").value;
+    const username = document.querySelector(".username-box").value;
+    const newMessageObject = {
+        from: username,
+        to: recipient,
+        text: message,
+        type: messageStatus
+    }
+
+    const promisse = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages",newMessageObject);
+    promisse.catch();
+    promisse.then(loadMessages);
+}

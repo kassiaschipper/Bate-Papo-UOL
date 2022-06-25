@@ -183,4 +183,33 @@
         background-color: #FFFFFF;
     }
 
+    .text-color-gray {
+        color: #AAAAAA;
+    }
+
+    .bold-text {
+        font-weight: 400;
+    }
+
+    .messages-default-style {
+        font-size: 14px;
+        line-height: 14px;
+        word-break: break-all;
+        color: #000000;
+    }
+
+    .public-messege {
+        background-color: #FFFFFF;
+        border-radius: 2px;
+    }
+
+    .private-messege {
+        background-color: #FFDEDE;
+        border-radius: 2px;
+    }
+
+    .room-entry-message {
+        background: #DCDCDC;
+        border-radius: 2px;
+    }
 }
