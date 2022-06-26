@@ -350,4 +350,7 @@
         height: 21px;
     }
 
+    .chosed {
+        display: inline;
+    }
 }

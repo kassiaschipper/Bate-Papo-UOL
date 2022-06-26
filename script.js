@@ -46,7 +46,7 @@ function enterChatRoom() {
 function showMessages() {
     const promisse = axios.get("https://mock-api.driven.com.br/api/v6/uol/messages");
     promisse.then(loadMessages);
-                                                            
+
 }
 //função para carregar as mensagens
 function loadMessages(element) {
@@ -135,23 +135,49 @@ function unsentMessage() {
 }
 //funções da sidebar
 //abrir a sidebair ao clocar no icone do topo
-function showSidebar(){
+function showSidebar() {
     const sidebar = document.querySelector(".container-sidebar");
     sidebar.classList.remove("hidden");
 
     visibleUsers();
     //O site deve obter a lista de participantes assim que entra no chat e deve atualizar a lista a cada 10 segundos
-    setInterval(visibleUsers,10000);
+    setInterval(visibleUsers, 10000);
 }
 
 //fechar a sidbar ao clicar no fundo preto
-function closeSidebar(){
+function closeSidebar() {
     const close = document.querySelector(".container-sidebar");
     close.classList.add("hidden");
-  }
+}
 
 
-function visibleUsers{
+function visibleUsers() {
     const promisse = axios.get("https://mock-api.driven.com.br/api/v6/uol/participants");
     promisse.then(usersToTalk);
 }
+
+function usersToTalk(element) {
+    const talkOption = document.querySelector(".usersToTalk");
+    talkOption.innerHTML = `
+    <div class="all public-chat chosed" onclick="messageTo(this)">
+    <div>
+        <img src="images\\Vector.png">
+        <span>Todos</span>
+    </div>  
+    <img src="images\\check_mark.png">
+    `
+    for (let i = 0; i < element.data.length; i++) {
+        talkOption.innerHTML += `
+        <div class="users" onclick="messageTo(this)">
+        <div>
+            <img src="images\\Vector 2.png">
+            <span>${element.data[i].name}</span>
+        </div>  
+        <img src="images\\check_mark.png">
+        </div>        
+        `
+    }
+}
+
+
+
