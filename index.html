@@ -18,7 +18,7 @@
 
 <body>
 
-    <div class="container hidden">
+    <div class="container">
         <header>
             <img class="logo" src="images\logo 1.png">
             <img class="icon" src="images\Vector.png" onclick="showSidebar()">
@@ -33,7 +33,7 @@
     </div>
 
     <div class="hide-login-area hidden">
-        
+
         <div class="id-area">
             <img class="id-area-logo" src="images\logo 1.png">
             <textarea class="username-box" placeholder="Digite seu nome"></textarea>
@@ -41,36 +41,30 @@
         </div>
     </div>
 
-    <div class="sidebar-place">
-        <div class="dark-background"> testeinha</div>
 
-        <div class="sidebar">
-            <div class="sidebar-title">Escolha um contato<br> para enviar mensagem:</div>
-            <div class="talk-to">
-                <p class="all"><img src="images\Vector.png">Todos</p>
-                <p class="users"><img src="images\Vector 2.png">Maria</p>
-                <p class="users"><img src="images\Vector 2.png">João</p>
-            </div>
-            <div class="visibility">
-                <div class="options">Escolha a visibilidade:</div>
-                <p class="public-chat"><img src="images\open_padlock.png">Público</p>
-                <p class="private-chat"><img src="images\padlock.png">Reservadamente</p>
-               
+    <div class="container-sidebar hidden">
+        <div class="sidebar-place">
+            <div class="dark-background" onclick="closeSidebar()"></div>
+            <div class="sidebar">
+                <div class="sidebar-title">Escolha um contato<br> para enviar mensagem:</div>
+                <div class="talk-to">
+                    <p class="all"><img src="images\Vector.png">Todos</p>
+                    <p class="users"><img src="images\Vector 2.png">Maria</p>
+                    <p class="users"><img src="images\Vector 2.png">João</p>
+                </div>
+                <div class="visibility">
+                    <div class="options">Escolha a visibilidade:</div>
+                    <p class="public-chat"><img src="images\open_padlock.png">Público</p>
+                    <p class="private-chat"><img src="images\padlock.png">Reservadamente</p>
+
+                </div>
             </div>
         </div>
-        
-        
     </div>
+
     
-
-
-
-
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>

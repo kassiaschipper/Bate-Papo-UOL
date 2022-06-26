@@ -133,4 +133,25 @@ function unsentMessage() {
     window.location.reload();
     alert("Mensagem não enviada, tente novamente");
 }
+//funções da sidebar
+//abrir a sidebair ao clocar no icone do topo
+function showSidebar(){
+    const sidebar = document.querySelector(".container-sidebar");
+    sidebar.classList.remove("hidden");
 
+    visibleUsers();
+    //O site deve obter a lista de participantes assim que entra no chat e deve atualizar a lista a cada 10 segundos
+    setInterval(visibleUsers,10000);
+}
+
+//fechar a sidbar ao clicar no fundo preto
+function closeSidebar(){
+    const close = document.querySelector(".container-sidebar");
+    close.classList.add("hidden");
+  }
+
+
+function visibleUsers{
+    const promisse = axios.get("https://mock-api.driven.com.br/api/v6/uol/participants");
+    promisse.then(usersToTalk);
+}
