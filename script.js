@@ -11,15 +11,15 @@ function joinChatRoom() {
     const promisse = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants", usernameObject);
     promisse.then(enterChatRoom)//se nome ok, entra na sala 
     promisse.catch(askNewName)//se nome não ok pede outro nome
-    console.log(promisse);
+    // console.log(promisse);
 
 }
 
 // função que verifica o erro e solicita novo nome
-function askNewName(error) { 
+function askNewName(error) {
     alert("erro");
-    const error = error.response.status;
-    if (error === 400) {
+    const errorType = error.response.status;
+    if (errorType === 400) {
         alert("Esse nome já existe na sala, escolha outro!");
         window.location.reload();
     }
@@ -32,8 +32,9 @@ function enterChatRoom() {
     const hideLoginArea = document.querySelector(".hide-login-area");
     hideLoginArea.classList.add("hidden");
     //mostra tela do bate papo 
-    const chatRoomContainer = document.querySelector(".container").classList.add("hidden");
-    
+    const chatRoomContainer = document.querySelector(".container")
+    chatRoomContainer.classList.remove("hidden");
+
     //mostra as mensagens 
     showMessages();
     //recarrega as mensagens
@@ -42,24 +43,20 @@ function enterChatRoom() {
     refreshOnlineUser();
 }
 
-function showMessages(){
+function showMessages() {
     const promisse = axios.get("https://mock-api.driven.com.br/api/v6/uol/messages");
     promisse.then(loadMessages);
-    
-    //scrola as memsagens 
-    const scroll = document.querySelector(".messages-container");
-    scroll.scrollIntoView();
-    
+                                                            
 }
 //função para carregar as mensagens
-function loadMessages(element){
+function loadMessages(element) {
 
     let messages = document.querySelector(".messages-container");
-    
-    for(let i; i < element.data.length; i++){
 
-        if(element.data[i].type === "status"){
-            messages.innerHTML +=`
+    for (let i; i < element.data.length; i++) {
+
+        if (element.data[i].type === "status") {
+            messages.innerHTML += `
             <div class="messages-default-style room-entry-message">
                 <span class="text-color-gray">(${element.data[i].time})</span>
                 <span class="bold-text">)${element.data[i].from}<span>
@@ -67,12 +64,12 @@ function loadMessages(element){
             </div>
             `
         }
-        if(element.data[i].type === "private_message"){
+        if (element.data[i].type === "private_message") {
             const username = document.querySelector(".username-box").value;
-           
-            if(element.data[i].to === username || element.data[i].to === "Todos" 
-            || element.data[i].from === username){
-            messages.innerHTML +=`
+
+            if (element.data[i].to === username || element.data[i].to === "Todos"
+                || element.data[i].from === username) {
+                messages.innerHTML += `
             <div class="messages-default-style private-message">
                 <span class="text-color-gray">(${element.data[i].time})</span>
                 <span class="bold-text">)${element.data[i].from}<span>
@@ -80,8 +77,8 @@ function loadMessages(element){
                 <span>${element.data[i].text}<span>  
             </div>
             `}
-        }else{
-            messages.innerHTML +=`
+        } else {
+            messages.innerHTML += `
             <div class="messages-default-style public-message">
                 <span class="text-color-gray">(${element.data[i].time})</span>
                 <span>para</span>
@@ -90,30 +87,34 @@ function loadMessages(element){
             </div>            
             `
         }
-        
+
     }
 
+    //scrolla as memsagens
+    const scroll = document.querySelector(".messages-container");
+    scroll.scrollIntoView();
+
 }
-function reloadMessages(){
+function reloadMessages() {
     //atualiza a pagina de 3s em 3s
     setInterval(showMessages, 3000);
 }
 
 //Manda o nome do usuário para o servidor
-function onlineUser(){
+function onlineUser() {
     const username = document.querySelector(".username-box").value;
-    const usernameObject = {name: username};
+    const usernameObject = { name: username };
     axios.post("https://mock-api.driven.com.br/api/v6/uol[/participants](https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/participants", usernameObject);
 
 }
 
 //atualiza o nome do usuario no servidor a cada 5s
-function refreshOnlineUser(){
-    setInterval(onlineUser,5000);
+function refreshOnlineUser() {
+    setInterval(onlineUser, 5000);
 }
 
 
-function sendMessage(){
+function sendMessage() {
     const message = document.querySelector(".textarea").value;
     const username = document.querySelector(".username-box").value;
     const newMessageObject = {
@@ -123,7 +124,13 @@ function sendMessage(){
         type: messageStatus
     }
 
-    const promisse = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages",newMessageObject);
-    promisse.catch();
+    const promisse = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", newMessageObject);
+    promisse.catch(unsentMessage);
     promisse.then(loadMessages);
 }
+//função para quando a promisse retornar falha
+function unsentMessage() {
+    window.location.reload();
+    alert("Mensagem não enviada, tente novamente");
+}
+
