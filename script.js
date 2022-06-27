@@ -1,5 +1,5 @@
 let recipient = "Todos";
-let messageStatus = "messages-default-style";
+let messageStatus = "message";
 let showMessagesIntervalId;
 let onlineUserIntervalId;
 //Usuário precisa se identificar para entrar na sala - podendo ou não ter seu usuário permitido
@@ -201,10 +201,8 @@ function changeMessageType(element) {
 
 
 function usersToTalk(element) {
-    const talkOption = document.querySelector(".all");
-    talkOption.innerHTML = `
-    <p onclick="closeSidebar(this)" class="all public-chat">
-        <img class="people" src="images\\Vector.png">Todos</p>`;
+    const talkOption = document.querySelector(".talk-to");
+    talkOption.innerHTML = "";
     talkOption.classList.add("chosed");
 
     for (let i = 0; i < element.data.length; i++) {
@@ -256,18 +254,17 @@ function visibility(element) {
 
     }
 }
-//Não está sendo chamada ainda
-function textInput() {
-    const text = document.querySelector(".text-messages p");
 
-    if (messageStatus === "messages-default-style") {
-        text.innerHTML = `
-        Enviando mensagem para ${recipient}
-        `;
+function handleKeyOnEnterChat(element) {
+    if (element.key === "Enter" && !element.shiftKey){
+        element.preventDefault();
+        joinChatRoom();
     }
-    else if (messageStatus === "private-chat") {
-        text.innerHTML = `
-        Enviando mensagem para ${recipient}
-    `
+}
+
+function handleKeyOnSendMessage(element) {
+    if (element.key === "Enter" && !element.shiftKey){
+        element.preventDefault();
+        sendMessage();
     }
 }

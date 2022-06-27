@@ -27,8 +27,8 @@
         <div class="messages-container"></div>
 
         <footer class="text-messages">
-            <textarea class="textarea" placeholder="Escreva aqui..."></textarea>
-            <div><img onclick="sendMessage()" class="send-message-icon" src="images\Vector1.png"></div>
+            <textarea class="textarea" placeholder="Escreva aqui..." onkeydown="handleKeyOnSendMessage(event)"></textarea>
+            <div><img onclick="sendMessage()"  class="send-message-icon" src="images\Vector1.png"></div>
             <p></p>
         </footer>
     </div>
@@ -37,7 +37,7 @@
 
         <div class="id-area">
             <img class="id-area-logo" src="images\logo 1.png">
-            <textarea class="username-box" placeholder="Digite seu nome"></textarea>
+            <textarea class="username-box" onkeydown="handleKeyOnEnterChat(event)" placeholder="Digite seu nome"></textarea>
             <div class="enter-button" onclick="joinChatRoom()">Entrar</div>
         </div>
     </div>
@@ -49,6 +49,8 @@
             <div class="sidebar">
                 <div class="sidebar-title">Escolha um contato<br> para enviar mensagem:</div>
                 <div class="talk-to">
+                    <p onclick="closeSidebar(this)" class="all public-chat">
+                        <img class="people" src="images\\Vector.png">Todos</p>
                     <!-- <div  class="check-mark "><img src="images\check_mark.png"></div> -->
                     <!-- <p class="users"><img src="images\Vector 2.png">User1</p>
                     <p class="users"><img src="images\Vector 2.png">User2</p> -->
