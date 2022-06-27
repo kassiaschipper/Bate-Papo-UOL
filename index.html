@@ -33,7 +33,7 @@
         </footer>
     </div>
 
-    <div class="hide-login-area hidden">
+    <div class="hide-login-area">
 
         <div class="id-area">
             <img class="id-area-logo" src="images\logo 1.png">
@@ -43,21 +43,20 @@
     </div>
 
 
-    <div class="container-sidebar">
-        <div class="sidebar-place">
+    <div class="container-sidebar hidden">
+        <div class="sidebar-place hidden">
             <div class="dark-background" onclick="closeSidebar()"></div>
             <div class="sidebar">
                 <div class="sidebar-title">Escolha um contato<br> para enviar mensagem:</div>
                 <div class="talk-to">
-                    <p onclick="messageTo(this)" class="all public-chat"><img class="people"src="images\Vector.png">Todos</p>
                     <!-- <div  class="check-mark "><img src="images\check_mark.png"></div> -->
                     <!-- <p class="users"><img src="images\Vector 2.png">User1</p>
                     <p class="users"><img src="images\Vector 2.png">User2</p> -->
                 </div>
                 <div class="visibility">
                     <div class="options">Escolha a visibilidade:</div>
-                    <p class="public-chat"><img src="images\open_padlock.png">Público</p>
-                    <p class="private-chat"><img src="images\padlock.png">Reservadamente</p>
+                    <div class="public-chat" onclick="changeMessageType(this)"><img src="images\open_padlock.png">Público<img class="check" src="images\check_mark.png"></div>
+                    <div class="private-chat" onclick="changeMessageType(this)"><img src="images\padlock.png">Reservadamente<img class="check hidden" src="images\check_mark.png"></div>
 
                 </div>
             </div>

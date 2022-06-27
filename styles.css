@@ -237,7 +237,7 @@
 
 
     .dark-background {
-        position: absolute;
+        position: fixed;
         width: 116px;
         height: 667px;
         left: 0;
@@ -247,7 +247,7 @@
     }
 
     .sidebar {
-        position: absolute;
+        position: fixed;
         top: 0;
         right: 0;
         background-color: #FFFFFF;
